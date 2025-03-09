@@ -25,7 +25,7 @@ class _AttendancePageState extends State<AttendancePage> {
   String _errorMessage = '';
   final TextEditingController _searchController = TextEditingController();
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
-  String _baseUrl = 'http://26.6.96.193:8000';
+  String _baseUrl = 'https://taekwondo.pythonanywhere.com';
 
   @override
   void initState() {

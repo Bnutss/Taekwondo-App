@@ -44,7 +44,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
 
     try {
       final studentsResponse = await http.get(
-        Uri.parse('http://26.6.96.193:8000/api/students/'),
+        Uri.parse('https://taekwondo.pythonanywhere.com/api/students/'),
         headers: {
           'Authorization': 'Token ${widget.token}',
           'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
       }
 
       final paymentsResponse = await http.get(
-        Uri.parse('http://26.6.96.193:8000/api/payments/'),
+        Uri.parse('https://taekwondo.pythonanywhere.com/api/payments/'),
         headers: {
           'Authorization': 'Token ${widget.token}',
           'Content-Type': 'application/json',
@@ -83,8 +83,6 @@ class _PaymentsPageState extends State<PaymentsPage> {
 
   void applyFilters() {
     List<dynamic> result = List.from(students);
-
-    // Фильтрация по статусу оплаты
     if (filterStatus != FilterStatus.all) {
       result = result.where((student) {
         Map<String, dynamic>? lastPayment = getLastPayment(student['id']);
@@ -574,7 +572,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
                         child: CircleAvatar(
                           backgroundColor: Colors.black,
                           backgroundImage: student['photo'] != null
-                              ? NetworkImage('http://26.6.96.193:8000/${student['photo']}')
+                              ? NetworkImage('https://taekwondo.pythonanywhere.com/${student['photo']}')
                               : null,
                           child: student['photo'] == null
                               ? const Icon(
@@ -819,7 +817,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
                     radius: 30,
                     backgroundColor: Colors.black,
                     backgroundImage: student['photo'] != null
-                        ? NetworkImage('http://26.6.96.193:8000/${student['photo']}')
+                        ? NetworkImage('https://taekwondo.pythonanywhere.com/${student['photo']}')
                         : null,
                     child: student['photo'] == null
                         ? const Icon(Icons.person, color: Colors.white, size: 30)
@@ -1176,7 +1174,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
 
               try {
                 final response = await http.post(
-                  Uri.parse('http://26.6.96.193:8000/api/payments/'),
+                  Uri.parse('https://taekwondo.pythonanywhere.com/api/payments/'),
                   headers: {
                     'Authorization': 'Token ${widget.token}',
                     'Content-Type': 'application/json',

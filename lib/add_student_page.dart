@@ -140,7 +140,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
     try {
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse('http://26.6.96.193:8000/api/students/'),
+        Uri.parse('https://taekwondo.pythonanywhere.com/api/students/'),
       );
 
       request.headers.addAll({

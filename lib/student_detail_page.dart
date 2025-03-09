@@ -31,7 +31,7 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
   Future<void> fetchStudentDetails() async {
     try {
       final response = await http.get(
-        Uri.parse('http://26.6.96.193:8000/api/students/${widget.studentId}/'),
+        Uri.parse('https://taekwondo.pythonanywhere.com/api/students/${widget.studentId}/'),
         headers: {
           'Authorization': 'Token ${widget.token}',
         },
@@ -208,7 +208,7 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
                 child: ClipOval(
                   child: studentData['photo'] != null
                       ? Image.network(
-                    'http://26.6.96.193:8000/${studentData['photo']}',
+                    'https://taekwondo.pythonanywhere.com/${studentData['photo']}',
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
@@ -451,15 +451,13 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
               ],
             ),
           ),
-
-          // Фото документа
           Container(
             color: Colors.grey.shade800,
             width: double.infinity,
             child: AspectRatio(
               aspectRatio: 16/9,
               child: Image.network(
-                'http://26.6.96.193:8000/${studentData['document_photo']}',
+                'https://taekwondo.pythonanywhere.com/${studentData['document_photo']}',
                 fit: BoxFit.contain,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(

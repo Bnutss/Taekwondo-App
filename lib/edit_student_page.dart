@@ -160,7 +160,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
     try {
       var request = http.MultipartRequest(
         'PATCH',
-        Uri.parse('http://26.6.96.193:8000/api/students/${widget.studentId}/'),
+        Uri.parse('https://taekwondo.pythonanywhere.com/api/students/${widget.studentId}/'),
       );
       request.headers.addAll({
         'Authorization': 'Token ${widget.token}',
@@ -324,7 +324,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
                   )
                       : _currentPhotoUrl != null
                       ? Image.network(
-                    'http://26.6.96.193:8000/${_currentPhotoUrl}',
+                    'https://taekwondo.pythonanywhere.com/${_currentPhotoUrl}',
                     fit: BoxFit.cover,
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
@@ -586,7 +586,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.network(
-                            'http://26.6.96.193:8000/${_currentDocumentPhotoUrl}',
+                            'https://taekwondo.pythonanywhere.com/${_currentDocumentPhotoUrl}',
                             width: double.infinity,
                             height: 200,
                             fit: BoxFit.cover,

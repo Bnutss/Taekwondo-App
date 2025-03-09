@@ -47,7 +47,7 @@ class _StudentsPageState extends State<StudentsPage> {
   Future<void> fetchStudents() async {
     try {
       final response = await http.get(
-        Uri.parse('http://26.6.96.193:8000/api/students/'),
+        Uri.parse('https://taekwondo.pythonanywhere.com/api/students/'),
         headers: {
           'Authorization': 'Token ${widget.token}',
           'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ class _StudentsPageState extends State<StudentsPage> {
   Future<void> deleteStudent(int id) async {
     try {
       final response = await http.delete(
-        Uri.parse('http://26.6.96.193:8000/api/students/$id/'),
+        Uri.parse('https://taekwondo.pythonanywhere.com/api/students/$id/'),
         headers: {
           'Authorization': 'Token ${widget.token}',
         },
@@ -642,7 +642,7 @@ class _StudentsPageState extends State<StudentsPage> {
                 child: CircleAvatar(
                   backgroundColor: Colors.black,
                   backgroundImage: student['photo'] != null
-                      ? NetworkImage('http://26.6.96.193:8000/${student['photo']}')
+                      ? NetworkImage('https://taekwondo.pythonanywhere.com/${student['photo']}')
                       : null,
                   child: student['photo'] == null
                       ? Icon(

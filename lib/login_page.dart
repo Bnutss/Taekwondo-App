@@ -39,10 +39,9 @@ class _LoginPageState extends State<LoginPage> {
     final token = prefs.getString('token');
 
     if (token != null && token.isNotEmpty) {
-      // Проверка валидности токена на любом защищенном эндпоинте
       try {
         final response = await http.get(
-          Uri.parse('http://26.6.96.193:8000/api/students/'),  // или любой другой защищенный эндпоинт
+          Uri.parse('https://taekwondo.pythonanywhere.com/api/students/'),
           headers: {
             'Authorization': 'Token $token',
             'Content-Type': 'application/json'
@@ -51,14 +50,12 @@ class _LoginPageState extends State<LoginPage> {
 
         if (response.statusCode == 200) {
           if (!mounted) return;
-          // Если токен действителен, перейти на главную страницу
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => HomePage(token: token)),
           );
         }
       } catch (e) {
-        // Если произошла ошибка, просто продолжить вход вручную
       }
     }
   }
@@ -87,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://26.6.96.193:8000/api/login/'),
+        Uri.parse('https://taekwondo.pythonanywhere.com/api/login/'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'username': _usernameController.text,
