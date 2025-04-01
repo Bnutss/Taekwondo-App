@@ -26,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     _loadSavedCredentials();
     _checkSavedToken();
   }
+
   Future<void> _loadSavedCredentials() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -34,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
       _rememberMe = prefs.getBool('rememberMe') ?? true;
     });
   }
+
   Future<void> _checkSavedToken() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
@@ -44,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
           Uri.parse('https://taekwondo.pythonanywhere.com/api/students/'),
           headers: {
             'Authorization': 'Token $token',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json; charset=utf-8'
           },
         );
 
@@ -59,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
+
   Future<void> _saveCredentials(String token) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
@@ -85,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final response = await http.post(
         Uri.parse('https://taekwondo.pythonanywhere.com/api/login/'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json; charset=utf-8'},
         body: jsonEncode({
           'username': _usernameController.text,
           'password': _passwordController.text,
@@ -93,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
+        final data = jsonDecode(utf8.decode(response.bodyBytes));
         final token = data['token'];
         await _saveCredentials(token);
 
@@ -103,7 +106,8 @@ class _LoginPageState extends State<LoginPage> {
           MaterialPageRoute(builder: (context) => HomePage(token: token)),
         );
       } else {
-        final data = jsonDecode(response.body);
+        final responseBody = utf8.decode(response.bodyBytes);
+        final data = jsonDecode(responseBody);
         setState(() {
           _errorMessage = data['error'] ?? 'Ошибка входа';
         });
